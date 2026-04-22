@@ -32,7 +32,7 @@ p, li, span, div, label { color: #1d2430; }
 .section { margin-top: 1.35rem; }
 .soft { color: #5f6b7a; }
 .badge { display:inline-block; padding: 0.35rem 0.7rem; border-radius: 999px; background:#edf3ff; color:#2050c9; font-size:0.8rem; font-weight:600; }
-.imgframe { border-radius: 24px; overflow:hidden; border:1px solid #e7ebf2; box-shadow:0 14px 36px rgba(15,23,42,0.07); }
+.imgframe { border-radius: 24px; overflow:hidden; border:1px solid #e7ebf2; box-shadow:0 14px 36px rgba(15,23,42,0.07); background: linear-gradient(180deg, #ffffff, #f8fbff); }
 </style>
 """, unsafe_allow_html=True)
 
@@ -47,7 +47,7 @@ with l:
     st.markdown("## Meet the Protagonist")
     st.write("6G is the invisible fabric that combines communication, sensing, and AI into one adaptive urban system.")
     st.write("The page is intentionally designed to feel like a premium product launch, not a dashboard builder: airy layout, large visuals, and a clear narrative arc.")
-    st.write("The main use case is a **smart city / autonomous mobility digital twin**.")
+    st.write("The main use case is a smart city / autonomous mobility digital twin.")
 with r:
     m1, m2 = st.columns(2)
     m1.metric("Peak speed", "1 Tbps", "~100x 5G")
@@ -68,7 +68,7 @@ comp = pd.DataFrame({
     "Starlink": ["250 Mbps", "20-50 ms", "Moderate", "Very limited", "Minimal", "None"],
     "6G": ["1 Tbps", "0.1 ms", "Excellent", "10M/km²", "Native", "Integrated"]
 })
-st.dataframe(comp, use_container_width=True, hide_index=True)
+st.markdown("""<div class="card"><h4>Why 6G wins</h4><div class="soft">6G uniquely combines ultra-low latency, urban mobility, massive device density, native AI, and integrated sensing.</div></div>""", unsafe_allow_html=True)
 
 # ARCHITECTURE
 st.markdown('<div class="section"></div>', unsafe_allow_html=True)
@@ -199,19 +199,50 @@ fig_risk = px.pie(pd.DataFrame({'Risk':['Technical','Regulatory','Adoption','Eth
 fig_risk.update_layout(height=410, paper_bgcolor='white', margin=dict(l=10,r=10,t=18,b=10), legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='center', x=0.5))
 st.plotly_chart(fig_risk, use_container_width=True)
 
+
 # FUTURE
 st.markdown('<div class="section"></div>', unsafe_allow_html=True)
 st.markdown("### 7. Future Outlook")
-future = pd.DataFrame({
-    "Phase": ["2025-2028", "2028-2033", "2033+"],
-    "Story": ["Research and standardization", "Trials and early deployment", "Mainstream disruption"],
-    "What appears": ["Terahertz prototypes", "Industrial corridors, specialized healthcare", "Digital twins, XR, ambient intelligence"]
-})
-fig_future = px.timeline(future, x_start=[2025,2028,2033], x_end=[2028,2033,2036], y='Phase', color='Phase')
-fig_future.update_layout(height=350, paper_bgcolor='white', plot_bgcolor='#f7f9fc', margin=dict(l=10,r=10,t=18,b=10), showlegend=False)
-st.plotly_chart(fig_future, use_container_width=True)
+fo1, fo2 = st.columns([1.12, 1.08])
+with fo1:
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    st.markdown("#### Three-act future")
+    acts = pd.DataFrame({
+        "Phase": ["2025-2028", "2028-2033", "2033+"],
+        "Meaning": ["Research and standards", "Trials and early rollouts", "Mainstream disruption"],
+        "Visual cue": ["Lab prototypes", "Pilot corridors", "Invisible infrastructure"]
+    })
+    st.dataframe(acts, use_container_width=True, hide_index=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+with fo2:
+    fig_future = go.Figure()
+    fig_future.add_trace(go.Scatter(x=[2025,2028,2033,2036], y=[20,45,72,92], mode='lines+markers', line=dict(color='#0a84ff', width=5), fill='tozeroy', fillcolor='rgba(10,132,255,0.10)', name='Adoption curve'))
+    fig_future.add_trace(go.Scatter(x=[2025,2028,2033,2036], y=[12,35,60,84], mode='lines+markers', line=dict(color='#34c759', width=5), fill='tozeroy', fillcolor='rgba(52,199,89,0.08)', name='Value creation'))
+    fig_future.update_layout(height=380, paper_bgcolor='white', plot_bgcolor='#f7f9fc', margin=dict(l=10,r=10,t=18,b=10), legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='center', x=0.5), xaxis_title='Year', yaxis_title='Index')
+    st.plotly_chart(fig_future, use_container_width=True)
 
-st.markdown('<div class="card">', unsafe_allow_html=True)
-st.markdown("### Closing thesis")
-st.write("6G is not a connectivity upgrade. It is the invisible operating system of an AI-native economy.")
-st.markdown('</div>', unsafe_allow_html=True)
+st.markdown("#### Future outlook infographic")
+inf1, inf2, inf3, inf4 = st.columns(4)
+for c, title, body in [
+    (inf1, 'XR mainstream', 'Immersive commerce and collaboration'),
+    (inf2, 'Digital twins', 'Entire cities run in real time'),
+    (inf3, 'Ambient AI', 'Networks infer and adapt constantly'),
+    (inf4, 'New economics', 'Platforms, APIs, and outcome pricing'),
+]:
+    with c:
+        st.markdown(f'<div class="card"><h4>{title}</h4><p class="soft">{body}</p></div>', unsafe_allow_html=True)
+
+st.markdown('<div class="section"></div>', unsafe_allow_html=True)
+st.markdown("### 8. Closing thesis")
+close1, close2 = st.columns([1.08, 1.12])
+with close1:
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    st.write("6G is not a connectivity upgrade. It is the invisible operating system of an AI-native economy.")
+    st.write("The winners will not merely own spectrum or towers. They will own the layers above connectivity: intelligence, orchestration, data, and ecosystems.")
+    st.markdown('</div>', unsafe_allow_html=True)
+with close2:
+    try:
+        img3 = Image.open(BytesIO(requests.get('https://pplx-res.cloudinary.com/image/upload/pplx_search_images/0b691833f461d5c3e8ee53381ce8431ebe55ddf4.jpg', timeout=8).content))
+        st.image(img3, use_container_width=True)
+    except Exception:
+        st.info('Closing visual placeholder')

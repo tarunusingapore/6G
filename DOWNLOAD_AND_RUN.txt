@@ -1,0 +1,17 @@
+Files in output:
+- app.py
+- requirements.txt
+- README.md
+- 6g_streamlit_prototype.zip
+
+How to run locally:
+1. Download app.py and requirements.txt
+2. Run: pip install -r requirements.txt
+3. Run: streamlit run app.py
+
+How to deploy:
+1. Put app.py, requirements.txt, README.md in a GitHub repo
+2. Connect repo to Streamlit Community Cloud
+3. Set app.py as the main file
+
+If the ZIP is not visible in the UI, use the individual files instead.
