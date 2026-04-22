@@ -10,3 +10,7 @@ streamlit run app.py
 1. Push this folder to GitHub.
 2. Connect the repo in Streamlit Community Cloud.
 3. Set `app.py` as the entry point.
+
+## Files
+- `app.py`: main Streamlit application
+- `requirements.txt`: dependencies
